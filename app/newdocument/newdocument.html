@@ -1,0 +1,125 @@
+<ol class="breadcrumb">
+  <li><a href="#/home">All Documents</a></li>
+  <li class="active">New Topic</li>
+</ol>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <form name="form" class="css-form" novalidate>
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title pull-left">New Topic</h3>
+          <div class="btn-group pull-right">
+            <button class="btn btn-danger" ng-click="reset(form)">
+              <i class="fa fa-times"></i>
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-success" ng-click="saveDocument(thedoc)">
+              <i class="fa fa-check"></i>
+              Save
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" ng:class="{true:'has-error', false: 'has-success'}[form.Subject.$error.required]">
+            <label class="col-xs-3 control-label">Subject:</label>
+            <div class="col-xs-9">
+              <input type="text" class="form-control" ng-model="thedoc.Subject" name="Subject" required="" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 control-label">Document Type:</label>
+            <div class="col-xs-9">
+              <select ng-model="thedoc.DocType" class="dropdown form-control" required>
+                <option value="" selected>-- Choose Document Type --</option>
+                <option ng-repeat="doctype in doctypes" value="{{doctype}}">{{doctype}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" ng:class="{true:'', false: 'hidden'}[thedoc.DocType == 'Action Item']">
+            <label class="col-xs-3 control-label">Priority:</label>
+            <div class="col-xs-9">
+              <select ng-model="thedoc.AIPriority" class="dropdown form-control">
+                <option value="" selected>-- Choose Priority --</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 control-label">Categories</label>
+            <div class="col-xs-9">
+              <select ng-model="thedoc.Categories" class="dropdown form-control" required>
+                <option value="" selected>-- Choose Category --</option>
+                <option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 control-label">Milestones</label>
+            <div class="col-xs-9">
+              <select ng-model="thedoc.Milestones" class="dropdown form-control">
+                <option value="" selected>-- Choose Milestone --</option>
+                <option ng-repeat="milestone in milestones" value="{{milestone}}">{{milestone}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 control-label">Interested People:</label>
+            <div class="col-xs-9">
+              <select ng-model="thedoc.People" class="dropdown form-control" multiple>
+                <option ng-repeat="user in users" value="{{user}}">{{user}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" ng:class="{true:'', false: 'hidden'}[thedoc.DocType != 'Meeting']">
+            <label class="col-xs-3 control-label">Due Date:</label>
+            <div class="col-xs-9">
+              <input type="date" class="form-control" ng-model="thedoc.DueDate" name="DueDate" required="" />
+            </div>
+          </div>
+          <div class="form-group" ng:class="{true:'', false: 'hidden'}[thedoc.DocType == 'Meeting']">
+            <label class="col-xs-3 control-label">Meeting Date:</label>
+            <div class="col-xs-9">
+              <input type="date" class="form-control" ng-model="thedoc.MtgDate" name="MtgDate" required="" />
+            </div>
+          </div>
+          <div class="form-group" ng:class="{true:'', false: 'hidden'}[thedoc.DocType == 'Meeting']">
+            <label class="col-xs-3 control-label">Meeting Time:</label>
+            <div class="col-xs-9">
+              <input type="time" class="form-control" ng-model="thedoc.MtgTime" name="MtgTime" required="" />
+            </div>
+          </div>
+          <div class="form-group" ng:class="{true:'', false: 'hidden'}[thedoc.DocType == 'Meeting']">
+            <label class="col-xs-3 control-label">Duration (mins):</label>
+            <div class="col-xs-9">
+              <input type="number" class="form-control" ng-model="thedoc.Duration" name="Duration" required="" />
+            </div>
+          </div>
+          <div class="form-group" ng:class="{true:'', false: 'hidden'}[thedoc.DocType == 'Meeting']">
+            <label class="col-xs-3 control-label">Location:</label>
+            <div class="col-xs-9">
+              <input class="form-control" ng-model="thedoc.MtgLocation" name="MtgLocation" required="" />
+            </div>
+          </div>
+          <div class="form-group" ng:class="{true:'has-error', false: 'has-success'}[form.Body.$error.required]">
+            <label class="col-xs-3 control-label">Body:</label>
+            <div class="col-xs-9">
+              <div text-angular ng-model="thedoc.Body" ta-toolbar="{{toolbar}}"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 control-label">File Upload</label>
+            <div clas="col-xs-9">
+              <input type="file" id="file" name="file"/>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <small></small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

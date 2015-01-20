@@ -1,0 +1,251 @@
+<ol class="breadcrumb">
+  <li class="active">All Documents</li>
+</ol>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="bootcards-list hidden-print">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <div class="pull-right btn-group" role="group" ng-class="{hidden:search()}">
+            <button title="First Page" ng-click="firstPage('MainTopic')" class="btn btn-default">
+              <i class="fa fa-angle-double-left"></i>
+            </button>
+            <button title="Previous Page" ng-click="previousPage('MainTopic')" class="btn btn-default">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <button class="btn btn-default" disabled="disabled">{{getPaginationDescription()}}</button>
+            <button title="Next Page" ng-click="nextPage('MainTopic')" class="btn btn-default">
+              <i class="fa fa-angle-right"></i>
+            </button>
+            <button title="Last Page" ng-click="lastPage('MainTopic')" class="btn btn-default">
+              <i class="fa fa-angle-double-right"></i>
+            </button>
+          </div>
+          <div class="pull-right btn-group" ng-class="{hidden:!search()}">
+            <button class="btn btn-default" disabled="disabled">{{getSearchDescription()}}</button>
+            <button class="btn btn-default" ng-click="firstPage('MainTopic')">Clear Search</button>
+          </div>
+          <h3 class="panel-title pull-left">{{collection}}</h3>
+        </div>
+        <div class="list-group">
+          <a ng-repeat="document in getDocumentData()" class="list-group-item" ng-class="{active:selected==document}" ng-click="detail($parent, $index);">
+            <div class="row">
+              <div class="col-sm-6">
+                <h4 class="list-group-item-heading nowrap">{{document.From | notesname}}</h4>
+              </div>
+              <div class="col-sm-6">
+                <p class="list-group-item-text nowrap">{{document.__created | date : format : timezone}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <p class="list-group-item-text nowrap">{{document.Subject}}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="panel-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8" ng:class="{true:'hidden', false: ''}[!docdetail]">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">{{docdetail.Subject}}</h3>
+      </div>
+      <div class="list-group">
+        <div class="list-group-item">
+          <label>Created By:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.From | notesname}}
+          </h4>
+        </div>
+        <div class="list-group-item">
+          <label>Created:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.__created | date:'dd-MMM-yyyy HH:mm Z'}}
+          </h4>
+        </div>
+        <div class="list-group-item">
+          <label>Document Type:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.DocType}}
+          </h4>
+        </div>
+        <div class="list-group-item" ng:class="{true:'', false: 'hidden'}[docdetail.DocType == 'Action Item']">
+          <label>Priority:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.AIPriority}}
+          </h4>
+        </div>
+        <div class="list-group-item">
+          <label>Categories:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.Categories | implodelist}}
+          </h4>
+        </div>
+        <div class="list-group-item" ng:class="{true:'', false: 'hidden'}[docdetail.Milestones != null]">
+          <label>Milestones:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.Milestones | implodelist}}
+          </h4>
+        </div>
+        <div class="list-group-item" ng:class="{true:'', false: 'hidden'}[docdetail.SubteamInterest != null]">
+          <label>Associated Subteam(s):</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.SubteamInterest | implodelist}}
+          </h4>
+        </div>
+        <div class="list-group-item" ng:class="{true:'', false: 'hidden'}[docdetail.DocType != 'Meeting' && docdetail.DueDate != null]">
+          <label>Due Date:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.DueDate | date:'dd-MMM-yyyy'}}
+          </h4>
+        </div>
+        <div class="list-group-item" ng:class="{true:'', false: 'hidden'}[docdetail.DocType == 'Meeting' && docdetail.MtgDate != null]">
+          <label>Meeting Date:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.MtgDate | date:'dd-MMM-yyyy'}}
+            {{docdetail.MtgTime | date:'HH:mm Z'}}
+          </h4>
+        </div>
+        <div class="list-group-item" ng:class="{true:'', false: 'hidden'}[docdetail.DocType == 'Meeting' && docdetail.Duration != null]">
+          <label>Duration:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.Duration}} mins
+          </h4>
+        </div>
+        <div class="list-group-item" ng:class="{true:'', false: 'hidden'}[docdetail.DocType == 'Meeting' && docdetail.MtgLocation != null]">
+          <label>Location:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.MtgLocation}}
+          </h4>
+        </div>
+        <div class="list-group-item" ng:class="{true:'', false: 'hidden'}[docdetail.People != null]">
+          <label>Interested People and Teams:</label>
+          <h4 class="list-group-item-heading">
+            {{docdetail.People | implodelist}}
+          </h4>
+        </div>
+        <div class="list-group-item">
+          <label>Body:</label>
+          <h4 class="list-group-item-heading">
+            <div ng:bind-html="docdetail.Body__parsed | gethtml" ng:class="{true:'', false: 'hidden'}[docdetail.Body__parsed]"></div>
+            <div ng:class="{true:'', false: 'hidden'}[!docdetail.Body__parsed]">
+              {{docdetail.Body}}
+            </div>
+          </h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default bootcards-file" ng:class="{true:'hidden', false: ''}[!docdetail._files]">
+      <div class="panel-heading">
+        <h3 class="panel-title">Files</h3>
+      </div>
+      <div class="list-group">
+        <div class="list-group-item" ng-repeat="file in docdetail._files">
+          <a href="{{urlBase}}/attachment/{{database}}/{{docdetail.__form}}/{{docdetail.__unid}}/{{file}}?apikey={{apikey}}" target="newwindow">
+            <i class="icon-file"></i>
+          </a>
+          <h4 class="list-group-item-heading">
+            <a href="{{urlBase}}/attachment/{{database}}/{{docdetail.__form}}/{{docdetail.__unid}}/{{file}}?apikey={{apikey}}" target="newwindow">{{file}}</a>
+          </h4>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+
+    <div ng-repeat="response in responses">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title pull-left">{{response.Subject}}</h3>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            <label>Created By:</label>
+            <h4 class="list-group-item-heading">
+              {{response.From | notesname}}
+            </h4>
+          </div>
+          <div class="list-group-item">
+            <label>Created:</label>
+            <h4 class="list-group-item-heading">
+              {{response.__created | date:'dd-MMM-yyyy HH:mm Z'}}
+            </h4>
+          </div>
+          <div class="list-group-item">
+            <label>Body:</label>
+            <h4 class="list-group-item-heading">
+              <div ng:bind-html="response.Body__parsed | gethtml" ng:class="{true:'', false: 'hidden'}[response.Body__parsed]"></div>
+              <div ng:class="{true:'', false: 'hidden'}[!response.Body__parsed]">
+                {{response.Body}}
+              </div>
+            </h4>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel panel-default bootcards-file" ng:class="{true:'hidden', false: ''}[!response._files]">
+        <div class="panel-heading">
+          <h3 class="panel-title">Files</h3>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item" ng-repeat="file in response._files">
+            <a href="/1.0/attachment/{{database}}/{{response.__form}}/{{response.__unid}}/{{file}}">
+              <i class="icon-file"></i>
+            </a>
+            <h4 class="list-group-item-heading">
+              <a href="/1.0/attachment/{{database}}/{{response.__form}}/{{response.__unid}}/{{file}}">{{file}}</a>
+            </h4>
+            <p>&nbsp;</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default hidden-print">
+    <form name="responseform" class="css-form" novalidate>
+      <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">New Response</h3>
+        <div class="btn-group pull-right">
+          <button class="btn btn-danger" ng-click="reset(responseform)">
+            <i class="fa fa-times"></i>
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-success" ng-click="saveNewResponse(thedoc)">
+            <i class="fa fa-check"></i>
+            Save
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" ng:class="{true:'has-error', false: 'has-success'}[form.Subject.$error.required]">
+          <label class="col-xs-3 control-label">Subject</label>
+          <div class="col-xs-9">
+            <input type="text" class="form-control" ng-model="thedoc.Subject" name="Subject" required="" />
+          </div>
+        </div>
+        <div class="form-group" ng:class="{true:'has-error', false: 'has-success'}[form.Body.$error.required]">
+          <label class="col-xs-3 control-label">Body</label>
+          <div class="col-xs-9">
+            <div text-angular ng-model="thedoc.Body" ta-toolbar="{{toolbar}}"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-3 control-label">File Upload</label>
+          <div clas="col-xs-9">
+            <input type="file" id="file" name="file"/>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <small></small>
+      </div>
+    </form>
+  </div>
+</div>

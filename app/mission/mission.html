@@ -1,0 +1,61 @@
+<ol class="breadcrumb">
+  <li><a href="#/home">Home</a></li>
+  <li class="active">Mission</li>
+</ol>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <form name="form" class="css-form" novalidate>
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title pull-left">Mission</h3>
+          <div class="btn-group pull-right">
+            <button class="btn btn-danger" ng-click="reset(form)">
+              <i class="fa fa-times"></i>
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-success" ng-click="saveMission(mission)">
+              <i class="fa fa-check"></i>
+              Save
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" ng:class="{true:'has-error', false: 'has-success'}[form.TeamName.$error.required]">
+            <label class="col-xs-3 control-label">Team Name:</label>
+            <div class="col-xs-9">
+              <input type="text" class="form-control" ng-model="mission.TeamName" name="TeamName" required="" />
+            </div>
+          </div>
+          <div class="form-group" ng:class="{true:'has-error', false: 'has-success'}[form.TeamLeader.$error.required]">
+            <label class="col-xs-3 control-label">Team Leader:</label>
+            <div class="col-xs-9">
+              <input type="text" class="form-control" ng-model="mission.TeamLeader" name="TeamLeader" required="" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 control-label">Categories:</label>
+            <div class="col-xs-9">
+              <textarea class="form-control" ng-model="mission.Categories" split-array></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 control-label">Mission:</label>
+            <div class="col-xs-9">
+              <textarea class="form-control" ng-model="mission.Mission" rows="10"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 control-label">Document Types:</label>
+            <div class="col-xs-9">
+              <textarea class="form-control" ng-model="mission.DocType" split-array></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <small></small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
