@@ -29,7 +29,7 @@
           <h3 class="panel-title pull-left">{{collection}}</h3>
         </div>
         <div class="list-group">
-          <a ng-repeat="document in getDocumentData()" class="list-group-item" ng-class="{active:selected==document}" ng-click="detail($parent, $index);">
+          <a ng-repeat="document in getDocumentData()" class="list-group-item doc-item" ng-class="{active:selected==document}" ng-click="detail($parent, $index);">
             <div class="row">
               <div class="col-sm-6">
                 <h4 class="list-group-item-heading nowrap">{{document.From | notesname}}</h4>
@@ -45,16 +45,13 @@
             </div>
           </a>
         </div>
-        <div class="panel-footer">
-
-        </div>
       </div>
     </div>
   </div>
   <div class="col-md-8" ng:class="{true:'hidden', false: ''}[!docdetail]">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">{{docdetail.Subject}}</h3>
+        <h3>{{docdetail.Subject}}</h3>
       </div>
       <div class="list-group">
         <div class="list-group-item">
@@ -144,7 +141,7 @@
 
     <div class="panel panel-default bootcards-file" ng:class="{true:'hidden', false: ''}[!docdetail._files]">
       <div class="panel-heading">
-        <h3 class="panel-title">Files</h3>
+        <h3>Files</h3>
       </div>
       <div class="list-group">
         <div class="list-group-item" ng-repeat="file in docdetail._files">
@@ -162,7 +159,7 @@
     <div ng-repeat="response in responses">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
-          <h3 class="panel-title pull-left">{{response.Subject}}</h3>
+          <h3>{{response.Subject}}</h3>
         </div>
         <div class="list-group">
           <div class="list-group-item">
@@ -208,10 +205,9 @@
     </div>
   </div>
 
-  <div class="panel panel-default hidden-print">
-    <form name="responseform" class="css-form" novalidate>
-      <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">New Response</h3>
+  <form name="responseform" class="css-form" novalidate>
+    <div class="panel panel-default hidden-print">
+      <div class="panel-heading">
         <div class="btn-group pull-right">
           <button class="btn btn-danger" ng-click="reset(responseform)">
             <i class="fa fa-times"></i>
@@ -222,6 +218,7 @@
             Save
           </button>
         </div>
+        <h3>New Response</h3>
       </div>
       <div class="modal-body">
         <div class="form-group" ng:class="{true:'has-error', false: 'has-success'}[form.Subject.$error.required]">
@@ -246,6 +243,6 @@
       <div class="panel-footer">
         <small></small>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>

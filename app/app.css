@@ -28,3 +28,14 @@
   content: "";
   padding: 0;
 }
+
+.doc-item {
+  cursor: pointer;
+}
+
+.doc-item h4 {
+  text-overflow: ellipsis;
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+}

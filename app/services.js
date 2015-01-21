@@ -6,8 +6,8 @@ var dbviewerServices = angular.module('dbviewerServices', ['ngResource']);
 
 dbviewerServices.factory('dataFactory', ['$http', '$rootScope',
   function($http, $rootScope) {
-    var urlBase = 'https://local.ldcvia.com:3001/1.0';
-    var db = '192-168-0-6-demos-teamroom-nsf';
+    var urlBase = 'https://beta.ldcvia.com/1.0';
+    var db = 'dev-londc-com-teamroom-nsf';
     var dataFactory = {};
 
     dataFactory.data = {};

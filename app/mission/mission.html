@@ -5,10 +5,9 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-default">
-      <form name="form" class="css-form" novalidate>
-        <div class="panel-heading clearfix">
-          <h3 class="panel-title pull-left">Mission</h3>
+    <form name="form" class="css-form" novalidate>
+      <div class="panel panel-default">
+        <div class="panel-heading">
           <div class="btn-group pull-right">
             <button class="btn btn-danger" ng-click="reset(form)">
               <i class="fa fa-times"></i>
@@ -19,8 +18,9 @@
               Save
             </button>
           </div>
+          <h3>Mission</h3>
         </div>
-        <div class="modal-body">
+        <div class="panel-body">
           <div class="form-group" ng:class="{true:'has-error', false: 'has-success'}[form.TeamName.$error.required]">
             <label class="col-xs-3 control-label">Team Name:</label>
             <div class="col-xs-9">
@@ -52,10 +52,7 @@
             </div>
           </div>
         </div>
-        <div class="panel-footer">
-          <small></small>
-        </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </div>
